@@ -1,0 +1,36 @@
+<div id="loading" *ngIf="loading">Carregando...</div>
+
+<p-card
+  *ngIf="!loading"
+  header="Alteração de e-mail"
+  [style]="{ width: '360px' }"
+>
+  <ng-template pTemplate="header">
+    <img
+      alt="Card"
+      src="https://primefaces.org/cdn/primeng/images/usercard.png"
+    />
+  </ng-template>
+  <div *ngIf="valido" class="card p-fluid">
+    <div class="field">Confirma a alteração do e-mail?</div>
+
+    <div class="field">{{ token.parametros.email }}</div>
+
+    <div class="flex">
+      <p-button
+        label="Confirmar"
+        [loading]="saving"
+        (click)="onConfirm()"
+      ></p-button>
+    </div>
+  </div>
+
+  <div *ngIf="!valido" class="card p-fluid">
+    <div class="field">Link inválido.</div>
+    <div class="field">
+      <a [routerLink]="['/login']"> Clique aqui para voltar </a>
+    </div>
+  </div>
+</p-card>
+
+<p-toast position="bottom-center"></p-toast>

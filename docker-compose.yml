@@ -1,0 +1,33 @@
+services:
+  api:
+    image: estoque-api
+    container_name: estoque-api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "3004:3000"
+    env_file:
+      - .env
+    volumes:
+      - ./api:/app
+
+  frontend:
+    image: estoque-frontend
+    container_name: estoque-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4204:4200"
+    env_file:
+      - .env
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - api
+
+networks:
+  default:
+    external: true
+    name: sigein

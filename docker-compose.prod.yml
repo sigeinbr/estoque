@@ -1,0 +1,33 @@
+services:
+  estoque-frontend:
+    image: ghcr.io/sigeinbr/estoque-frontend:latest
+    container_name: estoque-frontend
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    ports:
+      - "4204:80"
+    env_file:
+      - .env
+    restart: always
+    networks:
+      - sigein
+
+  estoque-api:
+    depends_on:
+      - postgres-sigein
+    image: ghcr.io/sigeinbr/estoque-api:latest
+    container_name: estoque-api
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    ports:
+      - "3004:3000"
+    env_file:
+      - .env
+    restart: always
+    networks:
+      - sigein
+
+networks:
+  default:
+    external: true
+    name: sigein

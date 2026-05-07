@@ -1,0 +1,107 @@
+.p-datatable {
+  td {
+    vertical-align: top;
+  }
+
+  td.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .p-datatable-header {
+    border-top: none;
+    background: none;
+  }
+
+  .p-datatable-thead > tr > th {
+    border-bottom: 1px solid #dee2e6;
+    border-top: 1px solid #dee2e6;
+    background: #f8f9fa;
+  }
+
+  .p-datatable-wrapper {
+    overflow-y: auto !important;
+  }
+
+  .p-paginator {
+    justify-content: end;
+
+    .p-paginator-current {
+      border: none;
+    }
+  }
+}
+
+.p-dialog {
+  transform: none !important;
+}
+
+.p-button.p-button-secondary.p-button-outlined,
+.p-buttonset.p-button-secondary > .p-button.p-button-outlined,
+.p-splitbutton.p-button-secondary > .p-button.p-button-outlined {
+  border: 1px solid #ced4da;
+}
+
+.p-menubar {
+  background-color: transparent;
+}
+
+.p-menubar .p-submenu-list {
+  width: inherit;
+  min-width: 12.5rem;
+}
+
+.p-menubar .p-menuitem {
+  position: static;
+}
+
+.p-submenu-list {
+  z-index: 10;
+}
+
+.p-toast {
+  width: 30rem;
+}
+
+.p-tooltip {
+  max-width: none;
+}
+
+.p-treenode-content.p-highlight {
+  background-color: inherit;
+  color: inherit;
+}
+
+.p-treenode-content.p-highlight .p-tree-toggler {
+  color: inherit;
+}
+
+.p-overlaypanel-content {
+  padding: 0.75rem;
+}
+
+.p-overlaypanel-content {
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.p-inputgroup p-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-inputgroup > p-dropdown > .p-dropdown {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.p-inputtext:disabled {
+  background-color: #e9ecef;
+}
+
+.p-tooltip {
+  z-index: 300000000000000 !important;
+}

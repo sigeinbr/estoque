@@ -1,0 +1,16 @@
+<p-card
+  header="Escolha a Unidade Gestora desejada:"
+  [style]="{ width: '500px' }"
+>
+  <div class="field">
+    <ug-list (onUgChange)="onEscolherUg()"></ug-list>
+  </div>
+  <div class="flex">
+    <p-button
+      label="Voltar"
+      styleClass="p-button-secondary"
+      [style]="{ 'margin-left': '.5em' }"
+      routerLink="/login"
+    ></p-button>
+  </div>
+</p-card>

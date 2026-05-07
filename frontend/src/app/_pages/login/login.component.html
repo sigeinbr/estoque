@@ -1,0 +1,25 @@
+<p-card header="" [style]="{ width: '360px' }">
+  <ng-template pTemplate="header">
+    <img alt="Card" src="assets/images/logo-almoxarifado.png" />
+    <div class="brand-title">Almoxarifado</div>
+  </ng-template>
+  <form class="card p-fluid" [formGroup]="formLogin" (ngSubmit)="onAccess()">
+    <div class="field">
+      <label>Usuário</label>
+      <input type="text" pInputText pAutoFocus [autofocus]="true" formControlName="login" maxlength="50" />
+    </div>
+    <div class="field">
+      <label>Senha</label>
+      <p-password [feedback]="false" formControlName="senha" maxlength="15"></p-password>
+    </div>
+    <div class="field">
+      Esqueceu sua senha?<br>
+      <a [routerLink]="['/login/resetar-senha']">Clique aqui para redefinir</a>
+    </div>
+    <div class="flex">
+      <p-button label="Entrar" type="submit" [loading]="accessing" [disabled]="!formLogin.valid"></p-button>
+    </div>
+  </form>
+</p-card>
+
+<p-toast position="bottom-center"></p-toast>

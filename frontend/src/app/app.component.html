@@ -1,0 +1,52 @@
+<div id="loading" *ngIf="loading">Carregando...</div>
+
+<main *ngIf="!loading">
+  <section id="header">
+    <a id="title" routerLink="/">
+      <span class="app-title">Almoxarifado</span>
+    </a>
+
+    <div class="flex-grow-1">
+      <p-menubar [model]="appMenus"></p-menubar>
+    </div>
+
+    <div>
+      <p-button icon="pi pi-user" class="p-button-menubar" [rounded]="true" [outlined]="true"
+        (click)="userMenu.toggle($event)"></p-button>
+    </div>
+  </section>
+
+  <section id="context">
+    <div class="flex align-items-center">
+      <p-button label="{{ ug?.nome }}" [link]="true" (click)="onOpenUgModal()" />
+    </div>
+
+    <span>{{ usuario.nome }}</span>
+  </section>
+
+  <section id="content">
+    <router-outlet></router-outlet>
+  </section>
+</main>
+
+<p-dialog header="Escolha a Unidade Gestora desejada:" [(visible)]="ugModal" [modal]="true"
+  [style]="{ width: '40rem' }">
+  <ng-template pTemplate="content">
+    <ug-list (onUgChange)="onEscolherUg($event)"></ug-list>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-button label="Fechar" [text]="true" severity="secondary" (click)="ugModal = false" />
+  </ng-template>
+</p-dialog>
+
+<p-menu #userMenu [model]="userMenus" [popup]="true"></p-menu>
+
+<p-toast position="bottom-left">
+  <ng-template let-message pTemplate="message">
+    <div class="flex flex-column align-items-start" style="flex: 1">
+      <div class="font-medium my-3 text-900">
+        {{ message.detail }}
+      </div>
+    </div>
+  </ng-template>
+</p-toast>

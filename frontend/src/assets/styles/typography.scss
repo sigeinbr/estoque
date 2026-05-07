@@ -1,0 +1,68 @@
+h1, h2, h3, h4, h5, h6 {
+  margin: 1.5rem 0 0.5rem 0;
+  font-family: inherit;
+  font-weight: 700;
+  line-height: 0.8;
+
+  &:first-child {
+      margin-top: 0;
+  }
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+h5 {
+  font-size: 1rem;
+}
+
+h6 {
+  font-size: 0.75rem;
+}
+
+blockquote {
+  margin: 1rem 0;
+  padding: 0 2rem;
+  border-left: 4px solid #90A4AE;
+}
+
+hr {
+  border-top: solid var(--surface-border);
+  border-width: 1px 0 0 0;
+  margin: 1rem 0;
+}
+
+p {
+  margin: 0 5px;
+  line-height: 1.5;
+
+  &:last-child {
+      margin-bottom: 0;
+  }
+}
+
+.p-bold {
+  font-weight: bold !important;
+}
+
+.titulo-secundario {
+  letter-spacing: 0.05em !important;
+  color: #6C757D !important;
+  font-family: 'Open Sans' !important;
+  text-transform: uppercase !important;
+  margin-top: 32px !important;
+  margin-bottom: 24px !important;
+}

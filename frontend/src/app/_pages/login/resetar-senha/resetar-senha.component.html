@@ -1,0 +1,30 @@
+<p-card header="Redefinir Senha" [style]="{ width: '360px' }">
+  <ng-template pTemplate="header">
+    <img alt="Card" src="assets/images/logo-almoxarifado.png" />
+    <div class="brand-title">Almoxarifado</div>
+    <br>
+  </ng-template>
+  <form *ngIf="!enviado" class="card p-fluid" [formGroup]="formResetarSenha" (ngSubmit)="onSend()">
+    <div class="field">
+      <label>E-mail</label>
+      <input type="text" pInputText pAutoFocus [autofocus]="true" formControlName="email" />
+    </div>
+
+    <div class="flex">
+      <p-button label="Enviar" type="submit" [loading]="sending" [disabled]="!formResetarSenha.valid"></p-button>
+      <p-button label="Voltar" styleClass="p-button-secondary" [style]="{ 'margin-left': '.5em' }"
+        routerLink="/login"></p-button>
+    </div>
+  </form>
+  <div *ngIf="enviado" class="card p-fluid">
+    <div class="field">
+      Enviamos instruções de redefinição de senha para o endereço de e-mail informado.<br>
+      Por favor, verifique sua caixa de e-mail.
+    </div>
+    <div class="field">
+      <a [routerLink]="['/login']">Clique aqui para efetuar login</a>
+    </div>
+  </div>
+</p-card>
+
+<p-toast position="bottom-center"></p-toast>

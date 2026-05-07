@@ -1,0 +1,19 @@
+# Etapa 1: Build
+FROM node:20.14-bullseye AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Etapa 2: Execução
+FROM node:20.14-bullseye
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+# Copia apenas os arquivos compilados
+COPY --from=build /app/dist ./dist
+
+EXPOSE 3000
+CMD ["node", "dist/main.js"]

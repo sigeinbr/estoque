@@ -1,0 +1,121 @@
+#loading {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+main {
+  flex: 1;
+  display: grid;
+  height: 100vh;
+
+  grid-template-rows: $headerHeight $contextHeight 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "header"
+    "context"
+    "content";
+
+  #header {
+    grid-area: header;
+    background-color: #004687;
+    color: var(--surface-0);
+    position: relative;
+    border-bottom: 1px solid #d0d2d4;
+    display: flex;
+    column-gap: 20px;
+    align-items: center;
+    padding: 0 1rem;
+
+    #title {
+      font-family: 'Co Headline', 'Open Sans', sans-serif;
+      color: var(--surface-0);
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      line-height: 1;
+      text-decoration: none;
+
+      img {
+        display: block;
+        height: 34px;
+        width: auto;
+      }
+    }
+
+    .p-menuitem-text, .p-submenu-icon {
+      color: var(--surface-0);
+    }
+
+    .p-menuitem-active .p-menuitem-text,
+    .p-menuitem-active .p-submenu-icon,
+    .p-focus .p-menuitem-text,
+    .p-focus .p-submenu-icon {
+      color: var(--text-color);
+    }
+  }
+
+  #context {
+    grid-area: context;
+    background-color: var(--surface-0);
+    position: relative;
+    border-bottom: 1px solid #d0d2d4;
+    display: flex;
+    column-gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    -webkit-box-shadow: -1px 1px 5px 0px rgba(222, 222, 222, 1);
+    -moz-box-shadow: -1px 1px 5px 0px rgba(222, 222, 222, 1);
+    box-shadow: -1px 1px 5px 0px rgba(222, 222, 222, 1);
+  }
+
+  #content {
+    grid-area: content;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #ebedf0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.feature {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  background-color: var(--surface-0);
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  padding: 1rem;
+
+  p-table {
+    flex: 1;
+  }
+}
+
+.login {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .brand-title {
+    font-family: 'Co Headline', 'Open Sans', sans-serif;
+    color: #004687;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    text-align: center;
+    margin: 0.75rem 0 0;
+  }
+}

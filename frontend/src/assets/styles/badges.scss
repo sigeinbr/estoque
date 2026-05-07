@@ -1,0 +1,20 @@
+.base-badge {
+  border-radius: 4px;
+  padding: 0.25em 0.5rem;
+  text-transform: capitalize;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.3px;
+}
+
+.truefalse-badge {
+  &.status-true {
+    background-color: #ECF3FE;
+    color: #4285F4;
+  }
+
+  &.status-false {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #DC3545;
+  }
+}

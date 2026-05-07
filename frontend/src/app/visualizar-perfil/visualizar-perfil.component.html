@@ -1,0 +1,169 @@
+<div class="flex-1">
+  <loading-dialog [loading]="loading"></loading-dialog>
+
+  <div class="grid" *ngIf="!loading">
+    <div class="col-12">
+      <h3>Visualizando seu perfil</h3>
+      Olá {{ usuario?.nome }}. Aqui é o seu perfil no sistema e seus últimos
+      acessos.
+      <p-divider />
+    </div>
+    <div class="col-5">
+      <div class="grid">
+        <div class="col-12">
+          <h3>Seus dados</h3>
+        </div>
+        <div class="field col-12">
+          <label class="font-bold">Login</label>
+          <p>{{ usuario?.login }}</p>
+        </div>
+        <div class="field col-12">
+          <label class="font-bold">Nome</label>
+          <p>{{ usuario?.nome }}</p>
+        </div>
+        <div class="field col-12">
+          <label class="font-bold">CPF</label>
+          <p>{{ usuario?.cpf | cpfCnpj }}</p>
+        </div>
+        <div class="field col-6">
+          <label class="font-bold">E-mail</label>
+          <p>{{ usuario?.email }}</p>
+        </div>
+        <div class="field col-6 flex align-items-center">
+          <p-button
+            label="Alterar"
+            [link]="true"
+            (click)="onShowDialogAlterarEmail()"
+          />
+        </div>
+        <div class="field col-6">
+          <label class="font-bold">Senha</label>
+          <p>********</p>
+        </div>
+        <div class="field col-6 flex align-items-center">
+          <p-button label="Alterar" [link]="true" (click)="onShowDialogAlterarSenha()" />
+        </div>
+      </div>
+    </div>
+    <div class="col-7">
+      <div class="grid">
+        <div class="col-12">
+          <h3>Últimos acessos</h3>
+        </div>
+        <div class="field col">
+          <p-table
+            styleClass="p-datatable-sm"
+            scrollHeight="flex"
+            [scrollable]="true"
+            [value]="usuarioAcessos"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Dt. Acesso</th>
+                <th>Módulo</th>
+                <th>Navegador</th>
+                <th>Sist. Operacional</th>
+                <th>IP</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-logAcesso>
+              <tr>
+                <td>{{ logAcesso.dh_acesso | date : "dd/MM/yyyy HH:mm" }}</td>
+                <td>{{ logAcesso.modulo.descricao }}</td>
+                <td>{{ logAcesso.browser }}</td>
+                <td>{{ logAcesso.os }}</td>
+                <td>{{ logAcesso.ip }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  styleClass="p-fluid"
+  header="Alteração de e-mail"
+  [style]="{ width: '450px' }"
+  [modal]="true"
+  [(visible)]="dialogAlterarEmail"
+>
+  <ng-template pTemplate="content">
+    <form class="formgrid grid" [formGroup]="dialogAlterarEmailForm">
+      <div class="field col-12">
+        <label>E-mail *</label>
+        <input pInputText type="text" formControlName="email" maxlength="150" />
+      </div>
+
+      <div class="field col-12">
+        <label>Confirmar E-mail *</label>
+        <input
+          pInputText
+          type="text"
+          formControlName="confirmarEmail"
+          maxlength="150"
+        />
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      label="Salvar"
+      icon="pi pi-check"
+      [loading]="dialogAlterarEmailSaving"
+      [disabled]="!dialogAlterarEmailForm.valid"
+      (click)="onSaveDialogAlterarEmail()"
+    ></p-button>
+    <p-button
+      label="Cancelar"
+      icon="pi pi-times"
+      [outlined]="true"
+      (click)="onCloseDialogAlterarEmail()"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  styleClass="p-fluid"
+  header="Alteração de senha"
+  [style]="{ width: '300px' }"
+  [modal]="true"
+  [(visible)]="dialogAlterarSenha"
+>
+  <ng-template pTemplate="content">
+    <form class="formgrid grid" [formGroup]="dialogAlterarSenhaForm">
+      <div class="field col-12">
+        <label>Senha Atual *</label>
+        <p-password [feedback]="false" formControlName="senhaAtual" maxlength="15"></p-password>
+      </div>
+
+      <div class="field col-12">
+        <label>Nova Senha *</label>
+        <p-password [feedback]="false" formControlName="senhaNova" maxlength="15"></p-password>
+      </div>
+
+      <div class="field col-12">
+        <label>Confirmar Nova Senha *</label>
+        <p-password [feedback]="false" formControlName="confirmarSenhaNova" maxlength="15"></p-password>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      label="Salvar"
+      icon="pi pi-check"
+      [loading]="dialogAlterarSenhaSaving"
+      [disabled]="!dialogAlterarSenhaForm.valid"
+      (click)="onSaveDialogAlterarSenha()"
+    ></p-button>
+    <p-button
+      label="Cancelar"
+      icon="pi pi-times"
+      [outlined]="true"
+      (click)="onCloseDialogAlterarSenha()"
+    ></p-button>
+  </ng-template>
+</p-dialog>

@@ -1,0 +1,21 @@
+#container {
+  display: flex;
+}
+
+#item {
+  flex: 1;
+  align-content: center;
+  background-color: #f0f0f0;
+  color: #5d6a71;
+  margin: 10px;
+  min-height: 50px;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+#item:hover {
+  background: #004687;
+  color: #f0f0f0;
+  cursor: pointer;
+}

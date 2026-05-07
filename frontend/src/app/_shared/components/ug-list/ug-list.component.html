@@ -1,0 +1,13 @@
+<ng-container *ngIf="ugs?.length; then ugsList; else noUgs"></ng-container>
+
+<ng-template #ugsList>
+  <div id="container" *ngFor="let ug of ugs; let first = first">
+    <div id="item" (click)="onEscolherUg(ug)">
+      {{ ug.nome }}
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #noUgs>
+  Nenhuma unidade gestora vinculada ao seu usuário. Por favor, procure o administrador do sistema.
+</ng-template>

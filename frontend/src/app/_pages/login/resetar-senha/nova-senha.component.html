@@ -1,0 +1,34 @@
+<div id="loading" *ngIf="loading">Carregando...</div>
+
+<p-card *ngIf="!loading" header="Nova Senha" [style]="{ width: '360px' }">
+  <ng-template pTemplate="header">
+    <img alt="Card" src="assets/images/logo-almoxarifado.png" />
+    <div class="brand-title">Almoxarifado</div>
+    <br>
+  </ng-template>
+  <form *ngIf="valido" class="card p-fluid" [formGroup]="formNovaSenha" (ngSubmit)="onSave()">
+    <div class="field">
+      <label>Senha</label>
+      <p-password [feedback]="false" pAutoFocus [autofocus]="true" formControlName="senha" maxlength="15"></p-password>
+    </div>
+    <div class="field">
+      <label>Confirmar Senha</label>
+      <p-password [feedback]="false" formControlName="confirmarSenha" maxlength="15"></p-password>
+    </div>
+    <div class="flex">
+      <p-button label="Salvar" type="submit" [loading]="saving" [disabled]="!formNovaSenha.valid"></p-button>
+      <p-button label="Cancelar" styleClass="p-button-secondary" [style]="{ 'margin-left': '.5em' }"
+        routerLink="/login"></p-button>
+    </div>
+  </form>
+  <div *ngIf="!valido" class="card p-fluid">
+    <div class="field">
+      Link inválido.
+    </div>
+    <div class="field">
+      <a [routerLink]="['/login/recuperar-senha']">Clique aqui para recuperar senha</a>
+    </div>
+  </div>
+</p-card>
+
+<p-toast position="bottom-center"></p-toast>

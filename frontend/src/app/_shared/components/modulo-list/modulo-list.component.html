@@ -1,0 +1,13 @@
+<ng-container *ngIf="modulos?.length; then modulosList; else noModulos"></ng-container>
+
+<ng-template #modulosList>
+  <div id="container" *ngFor="let modulo of modulos; let first = first">
+    <div id="item" (click)="onEscolherModulo(modulo)">
+      {{ modulo.descricao }}
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #noModulos>
+  Nenhum módulo vinculado ao seu usuário. Por favor, procure o administrador do sistema.
+</ng-template>
