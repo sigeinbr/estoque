@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   private router = inject(Router);
 
   // props
-  title = 'Almoxarifado';
+  title = 'Estoque';
   loading: boolean = false;
   appMenus!: MenuItem[];
   userMenus!: MenuItem[];

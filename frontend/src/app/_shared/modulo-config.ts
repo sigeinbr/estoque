@@ -1,3 +1,3 @@
 export default class ModuloConfig {
-  static id: any = 3;
+  static id: any = 4;
 }

@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Consulta } from 'src/consultas/entities/consulta.entity';
+import { Relatorio } from 'src/relatorios/entities/relatorio.entity';
 import { GrupoPermissaoConsulta } from './entities/grupos-permissoes-consultas.entity';
 import { GrupoPermissaoMenu } from './entities/grupos-permissoes-menus.entity';
 import { GrupoPermissaoRelatorio } from './entities/grupos-permissoes-relatorios.entity';
@@ -16,6 +18,8 @@ import { GruposPermissoesService } from './grupos-permissoes.service';
       GrupoPermissaoRelatorio,
       GrupoPermissaoConsulta,
       GrupoPermissaoUsuario,
+      Relatorio,
+      Consulta,
     ]),
   ],
   controllers: [GruposPermissoesController],
