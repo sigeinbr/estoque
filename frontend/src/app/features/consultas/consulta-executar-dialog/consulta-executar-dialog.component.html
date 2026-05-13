@@ -1,0 +1,95 @@
+<p-dialog
+  styleClass="p-fluid"
+  position="top"
+  [style]="{ width: '550px' }"
+  [modal]="true"
+  [(visible)]="visible"
+>
+  <ng-template pTemplate="header">
+    <div class="flex flex-column">
+      <h4>Executando Consulta</h4>
+      <p-badge value="{{ selected.titulo }}" severity="info" />
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="content">
+    <form class="formgrid grid" [formGroup]="form">
+      <div class="field col-12" *ngIf="!selected.parametros?.length">
+        Sem parâmetros
+      </div>
+      @for (parametro of this.selected.parametros; track parametro) {
+      <div [ngSwitch]="parametro.tipo_campo" class="field col-12">
+        <label [required]="parametro.obrigatorio">{{ parametro.nome }}</label>
+        <p-inputNumber
+          *ngSwitchCase="'integer'"
+          mode="decimal"
+          [formControlName]="parametro.variavel"
+          [useGrouping]="false"
+        />
+        <input
+          *ngSwitchCase="'string'"
+          type="text"
+          pInputText
+          [formControlName]="parametro.variavel"
+        />
+        <div *ngSwitchCase="'numeric'">
+          <p-inputGroup>
+            <p-inputGroupAddon>R$</p-inputGroupAddon>
+            <p-inputNumber
+              inputStyleClass="text-right"
+              [formControlName]="parametro.variavel"
+              mode="decimal"
+              locale="pt-BR"
+              [minFractionDigits]="2"
+              [maxFractionDigits]="2"
+              placeholder="0,00"
+            />
+          </p-inputGroup>
+        </div>
+        <p-calendar
+          *ngSwitchCase="'date'"
+          appendTo="body"
+          dateFormat="dd/mm/yy"
+          [showIcon]="true"
+          [showButtonBar]="true"
+          [showOnFocus]="false"
+          [formControlName]="parametro.variavel"
+        />
+        <p-autoComplete
+          *ngSwitchCase="'sql_list'"
+          appendTo="body"
+          optionLabel="descricao"
+          (completeMethod)="executarParametro($event, parametro)"
+          [dropdown]="true"
+          [suggestions]="sqlListData"
+          [formControlName]="parametro.variavel"
+          [forceSelection]="true"
+        />
+        <p-dropdown
+          *ngSwitchCase="'json_list'"
+          appendTo="body"
+          optionLabel="descricao"
+          [showClear]="true"
+          [options]="parametro.json_lista"
+          [formControlName]="parametro.variavel"
+        />
+      </div>
+      }
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      label="Executar"
+      icon="pi pi-check"
+      [disabled]="!form.valid"
+      (click)="onExecute()"
+    ></p-button>
+    <p-button
+      label="Cancelar"
+      icon="pi pi-times"
+      [outlined]="true"
+      (click)="visible = false"
+    ></p-button>
+  </ng-template>
+</p-dialog>

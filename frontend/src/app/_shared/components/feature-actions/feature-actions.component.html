@@ -1,0 +1,32 @@
+@if (showEdit) {
+<p-button
+  icon="pi pi-pencil"
+  [text]="true"
+  severity="secondary"
+  size="small"
+  pTooltip="Editar"
+  tooltipPosition="bottom"
+  (onClick)="this.onEditClick()"
+></p-button>
+} @if (showDelete) {
+<p-button
+  icon="pi pi-trash"
+  [text]="true"
+  severity="danger"
+  size="small"
+  pTooltip="Excluir"
+  tooltipPosition="bottom"
+  (onClick)="onDeleteClick()"
+></p-button>
+} @if (actions.length > 0) {
+<p-button
+  icon="pi pi-bars"
+  [text]="true"
+  severity="secondary"
+  size="small"
+  pTooltip="Outras ações"
+  tooltipPosition="bottom"
+  (click)="onActionClick(); menu.toggle($event)"
+></p-button>
+<p-menu #menu [model]="actions" [popup]="true" appendTo="body"></p-menu>
+}

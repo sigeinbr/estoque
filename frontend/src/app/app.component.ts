@@ -3,8 +3,11 @@ import {
   HostListener,
   inject,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConsultaBuscarDialogComponent } from './features/consultas/consulta-buscar-dialog/consulta-buscar-dialog.component';
+import { RelatorioBuscarDialogComponent } from './features/relatorios/relatorio-buscar-dialog/relatorio-buscar-dialog.component';
 import { MenuItem } from 'primeng/api';
 import { finalize, interval } from 'rxjs';
 import HelperFunctions from './_shared/helper-functions';
@@ -29,6 +32,12 @@ export class AppComponent implements OnInit {
   private menusService = inject(MenusService);
   private jwtTokenService = inject(JwtTokenService);
   private router = inject(Router);
+
+  @ViewChild(RelatorioBuscarDialogComponent)
+  relatorioBuscarDialog!: RelatorioBuscarDialogComponent;
+
+  @ViewChild(ConsultaBuscarDialogComponent)
+  consultaBuscarDialog!: ConsultaBuscarDialogComponent;
 
   // props
   title = 'Estoque';
@@ -128,18 +137,44 @@ export class AppComponent implements OnInit {
     ];
   }
 
+  @HostListener('window:keydown.f2', ['$event'])
+  handleKeyDownConsulta() {
+    this.consultaBuscarDialog.show();
+  }
+
+  @HostListener('window:keydown.f4', ['$event'])
+  handleKeyDownRelatorio() {
+    this.relatorioBuscarDialog.show();
+  }
+
   createMenuItem(item: any, usuarioMenus: any[]): Menu {
     const isDisabled =
       item.menu_pai_id !== null &&
       !usuarioMenus.some((menu) => menu.id === item.id);
 
-    return {
+    const baseMenu = {
       id: item.id,
       menuPaiId: item.menu_pai_id,
       label: item.descricao,
       routerLink: item.rota,
       icon: item.icon,
       disabled: isDisabled,
-    } as Menu;
+    };
+
+    if (item.rota === 'consultas') {
+      return {
+        ...baseMenu,
+        routerLink: '',
+        command: () => this.consultaBuscarDialog.show(),
+      } as Menu;
+    } else if (item.rota === 'relatorios') {
+      return {
+        ...baseMenu,
+        routerLink: '',
+        command: () => this.relatorioBuscarDialog.show(),
+      } as Menu;
+    }
+
+    return baseMenu as Menu;
   }
 }

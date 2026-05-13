@@ -1,0 +1,20 @@
+<p-button
+  icon="pi pi-info-circle"
+  severity="secondary"
+  [text]="true"
+  (click)="op.toggle($event)"
+/>
+<p-overlayPanel #op>
+  <table id="audit-entity-info">
+    <tr>
+      <td>Criado por</td>
+      <td>{{ entity.created_by }}</td>
+      <td>{{ entity.created_at | date : "dd/MM/yyyy HH:mm" }}</td>
+    </tr>
+    <tr>
+      <td>Alterado por</td>
+      <td>{{ entity.updated_by }}</td>
+      <td>{{ entity.updated_at | date : "dd/MM/yyyy HH:mm" }}</td>
+    </tr>
+  </table>
+</p-overlayPanel>

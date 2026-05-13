@@ -16,6 +16,8 @@ import { MenubarModule } from 'primeng/menubar';
 import { ToastModule } from 'primeng/toast';
 import { ModuloListModule } from './_shared/components/modulo-list/modulo-list.module';
 import { UgListModule } from './_shared/components/ug-list/ug-list.module';
+import { ConsultaBuscarDialogComponent } from './features/consultas/consulta-buscar-dialog/consulta-buscar-dialog.component';
+import { RelatorioBuscarDialogComponent } from './features/relatorios/relatorio-buscar-dialog/relatorio-buscar-dialog.component';
 import { JwtTokenInterceptor } from './_shared/interceptors/jwt-token.interceptor';
 import { AppConfigService } from './_shared/services/app-config.service';
 import { AppComponent } from './app.component';
@@ -42,6 +44,8 @@ export function initializeAppConfig(appConfigService: AppConfigService) {
     DialogModule,
     UgListModule,
     ModuloListModule,
+    ConsultaBuscarDialogComponent,
+    RelatorioBuscarDialogComponent,
   ],
   providers: [
     MessageService,

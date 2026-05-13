@@ -1,0 +1,92 @@
+<p-table scrollHeight="flex" currentPageReportTemplate="Mostrando {first} até {last} de {totalRecords} registros"
+  styleClass="p-datatable-sm consulta-table" [loading]="loading" [value]="data" [columns]="selectedColumns" [rows]="20"
+  [totalRecords]="total" [paginator]="true" [scrollable]="true" [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[20, 50, 100]" (onFilter)="onFilter($event)" [resizableColumns]="true" columnResizeMode="fit"
+  selectionMode="single">
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <h3 class="m-0">Resultado da consulta: {{ this.consulta.titulo }}</h3>
+      <div class="flex gap-2">
+        <table-selected-columns [columns]="cols" [(selectedColumns)]="selectedColumns"></table-selected-columns>
+
+        <div>
+          <p-button icon="pi pi-eye" severity="secondary" pTooltip="Exibir Parâmetros" tooltipPosition="bottom"
+            [outlined]="true" (onClick)="op.toggle($event)" />
+          <p-overlayPanel #op>
+            <div class="grid p-2" style="max-width: 500px">
+              <div class="col-12">
+                <h5>Parâmetros</h5>
+              </div>
+              @for (parametro of this.consulta.parametros; track parametro) {
+              <div class="col-3 border-bottom-1 surface-border align-content-center text-right">
+                {{ parametro.nome }}
+              </div>
+              <div class="col-9 border-bottom-1 surface-border align-content-center">
+                {{
+                parametro.value
+                ? ["sql_list", "json_list"].includes(parametro.tipo_campo)
+                ? parametro.value.id + " - " + parametro.value.descricao
+                : parametro.value
+                : "Não informado"
+                }}
+              </div>
+              }
+              <div class="col" *ngIf="!this.consulta.parametros.length">
+                Sem parâmetros
+              </div>
+            </div>
+          </p-overlayPanel>
+        </div>
+        <p-button icon="pi pi-file-export" severity="secondary" pTooltip="Exportar" tooltipPosition="bottom"
+          [outlined]="true" (click)="onExport()"></p-button>
+        <p-button icon="pi pi-print" severity="secondary" pTooltip="Imprimir" tooltipPosition="bottom" [outlined]="true"
+          (click)="onPrint()"></p-button>
+        <p-button label="Fechar" icon="pi pi-times-circle" onClick="javascript:window.close();"></p-button>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field" style="min-width: 100px">
+        {{ col.header }} <p-sortIcon [field]="col.sortField || col.field"></p-sortIcon>
+        <p-columnFilter [type]="
+            col.type === 'currency'
+              ? 'numeric'
+              : col.type === 'date' || col.type === 'datetime'
+              ? 'date'
+              : 'text'
+          " [field]="col.field" display="menu"
+          [matchMode]="col.type === 'text' || !col.type ? 'contains' : undefined" />
+      </th>
+    </tr>
+
+  </ng-template>
+
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      <td *ngFor="let col of columns">
+        <ng-container [ngSwitch]="col.type">
+          <span *ngSwitchCase="'date'">
+            {{ rowData[col.field] | date: 'dd/MM/yyyy' }}
+          </span>
+          <span *ngSwitchCase="'datetime'">
+            {{ rowData[col.field] | date: 'dd/MM/yyyy HH:mm:ss' }}
+          </span>
+          <span *ngSwitchCase="'currency'">
+            {{ (rowData[col.field] ?? 0) | number:'1.2-2':'pt-BR' }}
+          </span>
+          <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
+        </ng-container>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="selectedColumns.length">Nenhum registro encontrado.</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-toast position="bottom-left"></p-toast>

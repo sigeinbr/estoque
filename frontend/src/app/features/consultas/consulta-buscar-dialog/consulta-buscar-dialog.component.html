@@ -1,0 +1,77 @@
+<p-dialog
+  styleClass="p-fluid"
+  position="top"
+  [header]="header"
+  [style]="{ width: '750px' }"
+  [modal]="true"
+  [(visible)]="visible"
+  [focusOnShow]="false"
+>
+  <ng-template pTemplate="content">
+    <loading-dialog *ngIf="loading" [loading]="loading"></loading-dialog>
+
+    <p-table
+      #dt
+      scrollHeight="flex"
+      dataKey="id"
+      currentPageReportTemplate="Mostrando {first} até {last} de {totalRecords} registros"
+      styleClass="p-datatable-sm"
+      sortField="titulo"
+      [value]="data"
+      [rows]="20"
+      [totalRecords]="total"
+      [paginator]="true"
+      [scrollable]="true"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[20, 50, 100]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="titulo">
+            Título <p-sortIcon field="titulo"></p-sortIcon>
+          </th>
+        </tr>
+
+        <tr>
+          <th>
+            <p-columnFilter
+              type="text"
+              field="titulo"
+              matchMode="contains"
+              placeholder="Procurar por título"
+            />
+          </th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-consulta>
+        <tr>
+          <td>
+            <a href="javascript:void(0)" (click)="onShowExecutar(consulta)">{{
+              consulta.titulo
+            }}</a>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5">Nenhum registro encontrado.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <div class="flex justify-content-end">
+      <p-button
+        label="Fechar"
+        icon="pi pi-times"
+        [outlined]="true"
+        (click)="visible = false"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<consulta-executar-dialog></consulta-executar-dialog>

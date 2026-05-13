@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 
 export interface AppConfig {
   apiEstoqUrl?: string;
+  apiReportsUrl?: string;
 }
 
 @Injectable({
@@ -17,6 +18,10 @@ export class AppConfigService {
 
   get apiEstoqUrl(): string {
     return this.config.apiEstoqUrl || location.origin;
+  }
+
+  get apiReportsUrl(): string {
+    return this.config.apiReportsUrl || '';
   }
 
   async load(): Promise<void> {
@@ -47,6 +52,8 @@ export class AppConfigService {
       throw new Error('Configuração inválida: "apiEstoqUrl" não foi definida.');
     }
 
-    return { apiEstoqUrl };
+    const apiReportsUrl = config.apiReportsUrl || (environment as any).apiReportsUrl;
+
+    return { apiEstoqUrl, apiReportsUrl };
   }
 }

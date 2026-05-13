@@ -1,0 +1,71 @@
+<p-dialog styleClass="p-fluid" [header]="header" [style]="{ width: '750px' }" [modal]="true" [(visible)]="visible">
+  <ng-template pTemplate="content">
+    <form [formGroup]="form">
+      <div class="formgrid grid">
+
+        <div class="field col-4">
+          <label [required]="true">Campo Inteiro</label>
+          <p-inputNumber formControlName="campoInteiro" [useGrouping]="false" />
+        </div>
+
+        <div class="field col-8">
+          <label>Campo Texto Curto</label>
+          <input pInputText type="text" formControlName="campoTextoCurto" maxlength="100" />
+        </div>
+
+        <div class="field col-12">
+          <label>Campo Texto Longo</label>
+          <textarea pInputTextarea formControlName="campoTextoLongo" rows="3" autoResize="true"></textarea>
+        </div>
+
+        <div class="field col-4">
+          <label>Campo Data</label>
+          <p-calendar formControlName="campoData" dateFormat="dd/mm/yy" [showIcon]="true" />
+        </div>
+
+        <div class="field col-4">
+          <label>Campo Data/Hora</label>
+          <p-calendar formControlName="campoDatahora" dateFormat="dd/mm/yy" [showTime]="true" [showIcon]="true" />
+        </div>
+
+        <div class="field col-4">
+          <label>Campo Numérico</label>
+          <p-inputNumber formControlName="campoNumeric" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" />
+        </div>
+
+        <div class="field col-4 flex flex-column">
+          <label>Campo Boolean</label>
+          <p-inputSwitch formControlName="campoBoolean" styleClass="mt-2" />
+        </div>
+
+        <div class="field col-8">
+          <label>Campo Arquivo</label>
+          <input type="file" class="p-inputtext p-component w-full" (change)="onArquivoChange($event)" />
+          <small *ngIf="selected?.campoArquivo" class="text-color-secondary">
+            Arquivo atual: {{ selected?.campoArquivo?.length }} bytes (base64). Selecione um novo para substituir.
+          </small>
+        </div>
+
+        <div class="field col-12">
+          <label>Campo JSON</label>
+          <textarea pInputTextarea formControlName="campoJson" rows="4" autoResize="false"
+            placeholder='{ "chave": "valor" }'></textarea>
+        </div>
+
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <div class="flex justify-content-between">
+      <div>
+        <audit-info *ngIf="selected != undefined" [entity]="selected"></audit-info>
+      </div>
+      <div>
+        <p-button label="Salvar" icon="pi pi-check" [disabled]="!form.valid" [loading]="saving"
+          (click)="onSave()"></p-button>
+        <p-button label="Cancelar" icon="pi pi-times" [outlined]="true" (click)="visible = false"></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>

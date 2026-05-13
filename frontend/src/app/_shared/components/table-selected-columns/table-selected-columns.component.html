@@ -1,0 +1,27 @@
+<p-button icon="pi pi-list-check" severity="secondary" pTooltip="Definir colunas a exibir" tooltipPosition="bottom"
+  [outlined]="true" (onClick)="op.toggle($event)" />
+
+<p-overlayPanel #op>
+  <div class="flex flex-column gap-3 w-25rem">
+    <p-table styleClass="table-selected-columns-table p-datatable-sm" [value]="filteredColumns"
+      [(selection)]="selectedColumns" (selectionChange)="onSelectionChange($event)" scrollHeight="250px">
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="text-center" style="width: 4rem"><p-tableHeaderCheckbox /></th>
+          <th>
+            <input pInputText type="search" [(ngModel)]="searchText" placeholder="Pesquisar coluna"
+              aria-label="Pesquisar coluna" class="w-full" />
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-column>
+        <tr>
+          <td class="text-center">
+            <p-tableCheckbox [value]="column" />
+          </td>
+          <td>{{ column.header }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-overlayPanel>

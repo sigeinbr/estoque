@@ -24,12 +24,27 @@ const routes: Routes = [
           ),
         canActivate: [AuthGuard],
       },
+      {
+        path: 'padrao',
+        loadComponent: () =>
+          import('./features/padrao/padrao.component').then((m) => m.PadraoComponent),
+        canActivate: [AuthGuard],
+      },
+      { path: 'consultas', redirectTo: '', pathMatch: 'full' },
+      { path: 'relatorios', redirectTo: '', pathMatch: 'full' },
     ],
   },
   {
     path: 'login',
     loadChildren: () =>
       import('./_pages/login/login.module').then((m) => m.LoginModule),
+  },
+  {
+    path: 'consulta-resultado',
+    loadComponent: () =>
+      import(
+        './features/consultas/consulta-resultado/consulta-resultado.component'
+      ).then((m) => m.ConsultaResultadoComponent),
   },
 ];
 

@@ -7,8 +7,10 @@ export interface Menu {
   id: string;
   menuPaiId: string | null;
   label: string;
-  routerLink: string;
+  routerLink?: string | null;
   icon: string;
+  disabled?: boolean;
+  command?: () => void;
   items?: Menu[];
 }
 
